@@ -4,7 +4,6 @@ const sendRequest = (path, settings) => {
     if (!res.ok) {
       return Promise.reject(`Oшибка: ${res.status}`);
     }
-    return;
   });
 };
 
@@ -36,13 +35,24 @@ export const register = (userData) => {
   });
 };
 
-export const getUserData = (jwt) => {
-  return sendRequest("/users/me", {
+export const getUserData = () => {
+  // return sendRequest("/users/me", {
+  // method: "GET",
+  // credentials: "include",
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
+  // });
+  const baseURL = "http://127.0.0.1:3001";
+  return fetch(`${baseURL}/users/me`, {
     method: "GET",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      // Authorization: `Bearer ${jwt}`,
     },
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Oшибка: ${res.status}`);
+    }
   });
 };
