@@ -1,0 +1,11 @@
+.button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+}
+
+.button:not(.button_disabled):hover {
+  opacity: 0.6;
+}

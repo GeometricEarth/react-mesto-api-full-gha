@@ -1,0 +1,18 @@
+.navbar__link {
+  color: #fff;
+  outline: none;
+  text-decoration: none;
+  transition: opasity ease-in-out 0.6s;
+}
+
+.navbar__link:visited {
+  color: #fff;
+}
+
+.navbar__link:active {
+  color: #fff;
+}
+
+.navbar__link:hover {
+  opacity: 0.6;
+}

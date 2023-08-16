@@ -1,0 +1,10 @@
+.form__input-list {
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 550px) {
+  .form__input-list {
+    margin-top: 75px;
+  }
+}

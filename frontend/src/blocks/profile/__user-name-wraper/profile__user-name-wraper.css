@@ -1,0 +1,11 @@
+.profile__user-name-wraper {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+
+@media (max-width: 550px) {
+  .profile__user-name-wraper {
+    gap: 10px;
+  }
+}

@@ -1,0 +1,12 @@
+.popup__field-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-top: 48px;
+}
+
+@media (max-width: 550px) {
+  .popup__field-list {
+    margin-top: 75px;
+  }
+}
