@@ -43,16 +43,18 @@ export const getUserData = () => {
   //   "Content-Type": "application/json",
   // },
   // });
-  const baseURL = "http://127.0.0.1:3001";
-  return fetch(`${baseURL}/users/me`, {
+  // const baseURL = "http://127.0.0.1:3001";
+  return fetch("http://127.0.0.1:3001/users/me", {
     method: "GET",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Oшибка: ${res.status}`);
-    }
-  });
+  })
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Oшибка: ${res.status}`);
+      }
+    })
+    .catch((err) => console.log(err));
 };
