@@ -64,6 +64,7 @@ class API {
         // authorization: this._key,
         'content-type': 'application/json',
       },
+      credentials: "include",
     };
     if (!!body && Object.keys(body).length !== 0) {
       settings.body = JSON.stringify({ ...body });
