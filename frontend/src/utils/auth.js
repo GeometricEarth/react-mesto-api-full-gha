@@ -34,12 +34,12 @@ export const register = (userData) => {
   });
 };
 
-export const getUserData = (jwt) => {
+export const getUserData = () => {
   return sendRequest('/users/me', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      // Authorization: `Bearer ${jwt}`,
     },
+    credentials: 'include',
   });
 };

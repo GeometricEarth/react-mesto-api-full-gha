@@ -35,18 +35,17 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      getUserData(jwt)
-        .then((res) => {
-          setLoggedIn(true);
-          setEmail(res.data.email);
-          navigate('/');
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+    getUserData()
+      .then((res) => {
+        setLoggedIn(true);
+        setEmail(res.data.email);
+        navigate('/');
+      })
+      .catch((err) => {
+        setLoggedIn(false);
+        console.error(err);
+      });
+
     // eslint-disable-next-line
   }, []);
 
