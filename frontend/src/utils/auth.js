@@ -28,7 +28,6 @@ export const register = (userData) => {
   }
   return sendRequest('/signup', {
     method: 'POST',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
