@@ -38,7 +38,7 @@ function App() {
     getUserData()
       .then((res) => {
         setLoggedIn(true);
-        setEmail(res.data.email);
+        setEmail(res.email);
         navigate('/');
       })
       .catch((err) => {

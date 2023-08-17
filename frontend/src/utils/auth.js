@@ -4,7 +4,7 @@ const sendRequest = (path, settings) => {
     if (!res.ok) {
       return Promise.reject(`Oшибка: ${res.status}`);
     }
-    return;
+    return res;
   });
 };
 
@@ -14,6 +14,7 @@ export const authorize = (userData) => {
   }
   return sendRequest('/signin', {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -27,6 +28,7 @@ export const register = (userData) => {
   }
   return sendRequest('/signup', {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -37,9 +39,13 @@ export const register = (userData) => {
 export const getUserData = () => {
   return sendRequest('/users/me', {
     method: 'GET',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
-  });
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => console.log(err));
 };

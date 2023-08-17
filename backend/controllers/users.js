@@ -116,7 +116,13 @@ const login = async (req, res, next) => {
     });
 
     res
-      .cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true })
+      .cookie('jwt', token, {
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+        // sameSite: true,
+        sameSite: 'None',
+        secure: true,
+      })
       .end();
   } catch (err) {
     next(checkErrorType(err));
