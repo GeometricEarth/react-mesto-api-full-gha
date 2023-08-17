@@ -48,3 +48,10 @@ export const getUserData = () => {
     })
     .catch((err) => console.log(err));
 };
+
+export const logout = () => {
+  return sendRequest('/signout', {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+};

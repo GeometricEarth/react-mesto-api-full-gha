@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const usersRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
-const { createUser, login } = require('./controllers/users');
+const { createUser, login, logout } = require('./controllers/users');
 const userAuth = require('./middlewares/auth');
 const { urlRegExp } = require('./utils/constants');
 
@@ -18,9 +18,7 @@ const allowedOrigin = [
   'http://localhost:3000',
   'http://127.0.0.1:3000',
   'http://geo.mesto.nomoreparties.co',
-  'http://www.geo.mesto.nomoreparties.co',
 ];
-// const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 const app = express();
 mongoose
@@ -36,22 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(cors({ origin: allowedOrigin, credentials: true }));
-
-// app.use((req, res, next) => {
-//   const { method } = req;
-//   const { origin } = req.headers;
-//   const requestHeaders = req.headers['access-control-request-headers'];
-//   res.credentials = true;
-//   if (allowedOrigin.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin);
-//   }
-//   if (method === 'OPTIONS') {
-//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-//     res.header('Access-Control-Allow-Headers', requestHeaders);
-//     return res.end();
-//   }
-//   return next();
-// });
 
 app.post(
   '/signin',
@@ -76,6 +58,8 @@ app.post(
   }),
   createUser,
 );
+app.delete('/signout', logout);
+
 app.use('/users', userAuth, usersRoutes);
 app.use('/cards', userAuth, cardsRoutes);
 
