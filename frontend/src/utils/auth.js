@@ -1,5 +1,8 @@
 const sendRequest = (path, settings) => {
-  const baseURL = 'http://127.0.0.1:3001';
+  const baseURL = !process.env.NODE_ENV
+    ? 'http://geo.mesto.nomoreparties.co'
+    : 'http://127.0.0.1:3001';
+
   return fetch(`${baseURL}${path}`, settings).then((res) => {
     if (!res.ok) {
       return Promise.reject(`Oшибка: ${res.status}`);
@@ -28,7 +31,6 @@ export const register = (userData) => {
   }
   return sendRequest('/signup', {
     method: 'POST',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -48,4 +50,11 @@ export const getUserData = () => {
       return res.json();
     })
     .catch((err) => console.log(err));
+};
+
+export const logout = () => {
+  return sendRequest('/signout', {
+    method: 'DELETE',
+    credentials: 'include',
+  });
 };

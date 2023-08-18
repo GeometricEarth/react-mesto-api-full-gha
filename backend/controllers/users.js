@@ -97,7 +97,9 @@ const createUser = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
+    const { NODE_ENV, JWT_SECRET } = process.env;
     const { email, password } = req.body;
+
     if (!email || !password) {
       throw new BadRequestError(validationErrorMessage);
     }
@@ -111,15 +113,32 @@ const login = async (req, res, next) => {
       throw new AuthError(AuthErrorMessage);
     }
 
-    const token = jwt.sign({ _id: user._id }, 'dev-secret', {
-      expiresIn: '7d',
-    });
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+      {
+        expiresIn: '7d',
+      },
+    );
 
     res
       .cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        // sameSite: true,
+        sameSite: 'None',
+        secure: true,
+      })
+      .end();
+  } catch (err) {
+    next(checkErrorType(err));
+  }
+};
+
+const logout = (_req, res, next) => {
+  try {
+    res
+      .clearCookie('jwt', {
+        httpOnly: true,
         sameSite: 'None',
         secure: true,
       })
@@ -136,4 +155,5 @@ module.exports = {
   updateUserProfile,
   updateUserAvatar,
   login,
+  logout,
 };

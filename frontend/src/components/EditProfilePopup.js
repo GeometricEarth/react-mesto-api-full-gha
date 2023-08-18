@@ -5,10 +5,10 @@ import PopupWithForm from './PopupWithForm';
 import usePopupClose from '../hooks/usePopupClose';
 
 export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { name, about } = useContext(CurrentUserContext);
 
   const { handleInputChange, handleSubmit, formData, errors, isValid, resetForm } = useForm(
-    currentUser ?? {},
+    { name, about },
     onUpdateUser
   );
 
@@ -16,6 +16,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoad
     if (isOpen === true) {
       resetForm();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   usePopupClose(isOpen, onClose);

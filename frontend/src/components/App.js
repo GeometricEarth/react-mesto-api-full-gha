@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Api from '../utils/API';
-import { getUserData } from '../utils/auth';
+import { getUserData, logout } from '../utils/auth';
 
 import Header from './Header';
 import Main from './Main';
@@ -37,6 +37,9 @@ function App() {
   useEffect(() => {
     getUserData()
       .then((res) => {
+        if (!res) {
+          throw new Error('Ошибка подключения к серверу');
+        }
         setLoggedIn(true);
         setEmail(res.email);
         navigate('/');
@@ -168,9 +171,12 @@ function App() {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem('jwt');
-    setLoggedIn(false);
-    navigate('/sign-in');
+    logout()
+      .then(() => {
+        setLoggedIn(false);
+        navigate('/sign-in');
+      })
+      .catch(console.error);
   };
 
   function closeAllPopups() {
