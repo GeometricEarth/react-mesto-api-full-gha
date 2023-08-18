@@ -76,5 +76,5 @@ class API {
     });
   }
 }
-const Api = new API("http://geo.mesto.nomoreparties.co");
+const Api = new API("http://api.geo.mesto.nomoreparties.co");
 export default Api;

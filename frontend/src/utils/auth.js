@@ -1,5 +1,5 @@
 const sendRequest = (path, settings) => {
-  const baseURL = "http://geo.mesto.nomoreparties.co";
+  const baseURL = "http://api.geo.mesto.nomoreparties.co";
 
   return fetch(`${baseURL}${path}`, settings).then((res) => {
     if (!res.ok) {
