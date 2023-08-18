@@ -61,15 +61,14 @@ class API {
     const settings = {
       method: method,
       headers: {
-        // authorization: this._key,
         'content-type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
     };
     if (!!body && Object.keys(body).length !== 0) {
       settings.body = JSON.stringify({ ...body });
     }
-    return fetch(`${this._baseURL}${path}`, settings).then((resp) => {
+    return fetch(`${this._baseURL}/${path}`, settings).then((resp) => {
       if (!resp.ok) {
         return Promise.reject(resp.statusText);
       }
@@ -77,5 +76,7 @@ class API {
     });
   }
 }
-const Api = new API('http://127.0.0.1:3001/', '3ad7048e-a39e-4977-8a2a-b13e574881a8');
+const Api = new API(
+  !process.env.NODE_ENV ? 'http://geo.mesto.nomoreparties.co' : 'http://127.0.0.1:3001'
+);
 export default Api;

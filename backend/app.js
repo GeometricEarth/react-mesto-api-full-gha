@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -13,12 +14,7 @@ const { urlRegExp } = require('./utils/constants');
 const errorHandler = require('./middlewares/errorHandler');
 const NotFoundError = require('./utils/httpErrors/NotFound');
 
-const { PORT = 3001 } = process.env;
-const allowedOrigin = [
-  'http://localhost:3000',
-  'http://127.0.0.1:3000',
-  'http://geo.mesto.nomoreparties.co',
-];
+const { PORT = 3001, FRONT_URL = 'http://localhost:3000' } = process.env;
 
 const app = express();
 mongoose
@@ -33,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(cors({ origin: allowedOrigin, credentials: true }));
+app.use(cors({ origin: FRONT_URL, credentials: true }));
 
 app.post(
   '/signin',

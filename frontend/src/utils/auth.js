@@ -1,5 +1,8 @@
 const sendRequest = (path, settings) => {
-  const baseURL = 'http://127.0.0.1:3001';
+  const baseURL = !process.env.NODE_ENV
+    ? 'http://geo.mesto.nomoreparties.co'
+    : 'http://127.0.0.1:3001';
+
   return fetch(`${baseURL}${path}`, settings).then((res) => {
     if (!res.ok) {
       return Promise.reject(`Oшибка: ${res.status}`);
