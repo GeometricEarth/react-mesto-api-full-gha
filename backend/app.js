@@ -26,6 +26,8 @@ mongoose
   })
   .catch(console.log);
 
+console.log(process.env.NODE_ENV);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
