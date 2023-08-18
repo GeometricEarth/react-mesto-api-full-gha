@@ -9,6 +9,7 @@ const forbiddenErrorMessage = 'Доступ запрещен';
 
 const createCard = (req, res, next) => {
   Card.create({ ...req.body, owner: req.user })
+    .populate(['owner', 'likes'])
     .then((data) => {
       res.status(201).send(data);
     })
