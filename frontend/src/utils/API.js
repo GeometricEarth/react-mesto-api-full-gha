@@ -76,5 +76,5 @@ class API {
     });
   }
 }
-const Api = new API("http://api.geo.mesto.nomoreparties.co");
+const Api = new API(process.env.API_URL ?? 'http://127.0.0.1:3001');
 export default Api;
