@@ -64,7 +64,7 @@ app.use((_req, _res, next) => {
   next(new NotFoundError('Страница которую вы запрашиваете не существует'));
 });
 app.use(errorLogger);
-app.use(errors()); //Обработчки ошибок celebrate
+app.use(errors()); // Обработчки ошибок celebrate
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
