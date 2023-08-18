@@ -1,6 +1,6 @@
 const sendRequest = (path, settings) => {
-  const baseURL = !process.env.NODE_ENV
-    ? 'http://geo.mesto.nomoreparties.co'
+  const baseURL = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+    ? 'http://api.geo.mesto.nomoreparties.co'
     : 'http://127.0.0.1:3001';
 
   return fetch(`${baseURL}${path}`, settings).then((res) => {
