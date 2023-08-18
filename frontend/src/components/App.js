@@ -37,6 +37,9 @@ function App() {
   useEffect(() => {
     getUserData()
       .then((res) => {
+        if (!res) {
+          throw new Error('Ошибка подключения к серверу');
+        }
         setLoggedIn(true);
         setEmail(res.email);
         navigate('/');
