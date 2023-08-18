@@ -1,7 +1,5 @@
 const sendRequest = (path, settings) => {
-  const baseURL = !process.env.NODE_ENV
-    ? 'http://geo.mesto.nomoreparties.co'
-    : 'http://127.0.0.1:3001';
+  const baseURL = "http://geo.mesto.nomoreparties.co";
 
   return fetch(`${baseURL}${path}`, settings).then((res) => {
     if (!res.ok) {
@@ -13,13 +11,13 @@ const sendRequest = (path, settings) => {
 
 export const authorize = (userData) => {
   if (!userData || Object.keys(userData).length === 0) {
-    return Promise.reject('Переданы неправильные параметры');
+    return Promise.reject("Переданы неправильные параметры");
   }
-  return sendRequest('/signin', {
-    method: 'POST',
-    credentials: 'include',
+  return sendRequest("/signin", {
+    method: "POST",
+    credentials: "include",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
   });
@@ -27,23 +25,23 @@ export const authorize = (userData) => {
 
 export const register = (userData) => {
   if (!userData || Object.keys(userData).length === 0) {
-    return Promise.reject('Переданы неправильные параметры');
+    return Promise.reject("Переданы неправильные параметры");
   }
-  return sendRequest('/signup', {
-    method: 'POST',
+  return sendRequest("/signup", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
   });
 };
 
 export const getUserData = () => {
-  return sendRequest('/users/me', {
-    method: 'GET',
-    credentials: 'include',
+  return sendRequest("/users/me", {
+    method: "GET",
+    credentials: "include",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   })
     .then((res) => {
@@ -53,8 +51,8 @@ export const getUserData = () => {
 };
 
 export const logout = () => {
-  return sendRequest('/signout', {
-    method: 'DELETE',
-    credentials: 'include',
+  return sendRequest("/signout", {
+    method: "DELETE",
+    credentials: "include",
   });
 };
