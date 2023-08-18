@@ -10,6 +10,7 @@ const cardsRoutes = require('./routes/cards');
 const { createUser, login, logout } = require('./controllers/users');
 const userAuth = require('./middlewares/auth');
 const { urlRegExp } = require('./utils/constants');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const errorHandler = require('./middlewares/errorHandler');
 const NotFoundError = require('./utils/httpErrors/NotFound');
@@ -28,8 +29,8 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 app.use(cors({ origin: FRONT_URL, credentials: true }));
+app.use(requestLogger);
 
 app.post(
   '/signin',
@@ -62,7 +63,8 @@ app.use('/cards', userAuth, cardsRoutes);
 app.use((_req, _res, next) => {
   next(new NotFoundError('Страница которую вы запрашиваете не существует'));
 });
-app.use(errors());
+app.use(errorLogger);
+app.use(errors()); //Обработчки ошибок celebrate
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
