@@ -10,10 +10,10 @@ const DuplicateKeyError = require('../utils/httpErrors/DuplicateKeyError');
 const notFoundErrorMessage = 'Запрашиваемый пользователь не найден';
 const AuthErrorMessage = 'Неправильное имя пользователя или пароль';
 
-const updateUser = (req, res, next, body) => {
+const updateUser = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
-    { $set: { ...body } },
+    { $set: { ...req.body } },
     { new: true, runValidators: true },
   )
     .then((result) => {
@@ -50,14 +50,6 @@ const getUserById = (req, res, next) => {
     .catch((err) => {
       next(checkErrorType(err));
     });
-};
-
-const updateUserProfile = (req, res, next) => {
-  updateUser(req, res, next, req.body);
-};
-
-const updateUserAvatar = (req, res, next) => {
-  updateUser(req, res, next, { avatar: req.body.avatar });
 };
 
 const createUser = async (req, res, next) => {
@@ -129,8 +121,7 @@ module.exports = {
   getAllUsers,
   getUserById,
   createUser,
-  updateUserProfile,
-  updateUserAvatar,
+  updateUser,
   login,
   logout,
 };

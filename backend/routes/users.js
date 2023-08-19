@@ -5,8 +5,7 @@ const { urlRegExp } = require('../utils/constants');
 const {
   getAllUsers,
   getUserById,
-  updateUserProfile,
-  updateUserAvatar,
+  updateUser,
 } = require('../controllers/users');
 
 router.get('/', getAllUsers);
@@ -28,7 +27,7 @@ router.patch(
       name: Joi.string().min(2).max(30).required(),
     }),
   }),
-  updateUserProfile,
+  updateUser,
 );
 router.patch(
   '/me/avatar',
@@ -37,7 +36,7 @@ router.patch(
       avatar: Joi.string().pattern(urlRegExp).required(),
     }),
   }),
-  updateUserAvatar,
+  updateUser,
 );
 
 module.exports = router;
