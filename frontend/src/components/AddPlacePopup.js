@@ -13,6 +13,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }
     if (isOpen === true) {
       resetForm();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   usePopupClose(isOpen, onClose);
