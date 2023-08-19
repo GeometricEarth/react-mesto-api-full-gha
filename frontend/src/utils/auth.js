@@ -1,9 +1,7 @@
 const sendRequest = (path, settings) => {
-  const baseURL = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
-    ? 'http://api.geo.mesto.nomoreparties.co'
-    : 'http://127.0.0.1:3001';
+  const { API_URL = 'http://127.0.0.1:3001' } = process.env;
 
-  return fetch(`${baseURL}${path}`, settings).then((res) => {
+  return fetch(`${API_URL}${path}`, settings).then((res) => {
     if (!res.ok) {
       return Promise.reject(`Oшибка: ${res.status}`);
     }
