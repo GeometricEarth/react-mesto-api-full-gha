@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 const { JWT_SECRET = 'dev-secret' } = process.env;
-console.log(JWT_SECRET);
 
 const AuthError = require('../utils/httpErrors/AuthError');
 
