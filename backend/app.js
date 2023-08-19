@@ -15,11 +15,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
 const NotFoundError = require('./utils/httpErrors/NotFound');
 
-const { PORT = 3000 } = process.env;
-const allowedOrigin = [
-  'https://geo.mesto.nomoreparties.co',
-  'http://localhost:3000',
-];
+const { PORT = 3001, FRONT_URL = 'http://localhost:3000' } = process.env;
 
 const app = express();
 mongoose
@@ -30,12 +26,10 @@ mongoose
   })
   .catch(console.log);
 
-console.log(process.env.NODE_ENV);
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ origin: allowedOrigin, credentials: true }));
+app.use(cors({ origin: FRONT_URL, credentials: true }));
 app.use(requestLogger);
 
 app.get('/crash-test', () => {
