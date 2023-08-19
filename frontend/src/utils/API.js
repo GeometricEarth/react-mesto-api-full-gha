@@ -75,6 +75,6 @@ class API {
     });
   }
 }
-const { API_URL = 'http://127.0.0.1:3001' } = process.env;
-const Api = new API(API_URL);
+const development = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+const Api = new API(development? 'http://127.0.0.1:3001': 'https://api.geo.mesto.nomoreparties.co');
 export default Api;
